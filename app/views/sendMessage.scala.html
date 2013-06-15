@@ -1,0 +1,15 @@
+@(devices: List[Device])
+
+@main("Registered devices") {
+        <h3>Registered Devices: (@devices.size())</h3>
+
+        <ul>
+        @for(device <- devices) {
+            <li>
+                @device.getDeviceId() ==> @device.getRegisteredId()
+            </li>
+        }
+        </ul>
+
+    
+}
