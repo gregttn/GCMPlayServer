@@ -1,11 +1,19 @@
 package utils;
 
-/**
- * Created with IntelliJ IDEA.
- * User: gregttn
- * Date: 15/06/13
- * Time: 13:36
- * To change this template use File | Settings | File Templates.
- */
+import com.google.android.gcm.server.Message;
+import com.google.android.gcm.server.Sender;
+
 public class GCMFactory {
+    private static final String API_KEY = "YOUR API KEY";
+
+    public Sender createSender() {
+        return new Sender(API_KEY);
+    }
+
+    public Message createMessage(String contentId, String content, int timeToLive) {
+        return new Message.Builder()
+                .timeToLive(timeToLive)
+                .addData(contentId, content)
+                .build();
+    }
 }

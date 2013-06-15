@@ -23,10 +23,10 @@ import static org.fest.assertions.Assertions.*;
 public class ApplicationTest {
 
     @Test
-    public void renderTemplate() {
-        Content html = views.html.index.render("Your new application is ready.");
-        assertThat(contentType(html)).isEqualTo("text/html");
-        assertThat(contentAsString(html)).contains("Your new application is ready.");
+    public void testIndex_redirectToDevicesPage() {
+        Result result = callAction(routes.ref.Application.index(), fakeRequest());
+
+        assertThat(status(result)).isEqualTo(SEE_OTHER);
     }
   
    
