@@ -6,17 +6,14 @@ import models.Device;
 import models.Notification;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Set;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GCMGatewayTest {
     GCMGateway gcmGateway = new GCMGateway();
@@ -32,11 +29,19 @@ public class GCMGatewayTest {
     @Test
     public void testSendMessage_shouldSendMessageToDevice() throws IOException {
         Device device = new Device("device1","abcdg13435");
-        Notification notification = new Notification("some content");
+        Notification notification = new Notification("some content", "some content id");
 
         gcmGateway.sendMessage(device, notification);
 
         verify(mockSender).send(any(Message.class), eq(Arrays.asList(device.getRegisteredId())), eq(1));
+    }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void testSendMessage_throwExceptionWhenNoDevices() throws IOException {
+        Notification notification = new Notification("some content", "some content id");
+
+        Set<Device> devices = null;
+
+        gcmGateway.sendMessage(devices, notification);
     }
 }

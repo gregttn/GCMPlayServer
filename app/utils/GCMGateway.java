@@ -17,11 +17,17 @@ import java.util.List;
 import java.util.Set;
 
 public class GCMGateway {
+    private static final int DEFAULT_TTL = 1 * 60 * 60;
+
     private GCMFactory gcmFactory = new GCMFactory();
 
-    public void sendMessage(Set<Device> destinationDevices, Notification notification) throws IOException {
+    public void sendMessage(Collection<Device> destinationDevices, Notification notification) throws IOException {
+        if (destinationDevices == null || destinationDevices.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
         Sender sender = gcmFactory.createSender();
-        Message message = gcmFactory.createMessage("message", notification.getContent(), 3600);
+        Message message = gcmFactory.createMessage(notification.getContentId(), notification.getContent(), DEFAULT_TTL);
 
         Collection<String> regIds = Collections2.transform(destinationDevices, new Function<Device, String>() {
             @Nullable
