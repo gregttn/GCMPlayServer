@@ -25,6 +25,7 @@ http://localhost:9000/register - send POST request to this address from your app
 
 Send a POST request to the http://localhost:9000/register to register device. You need to include following parameters
 deviceId - unique device id
+
 registrationId - registration id that you received when the app registered with Google Cloud Messaging service.
 
 When server sends message to application data will be contained in "message" param by default.
