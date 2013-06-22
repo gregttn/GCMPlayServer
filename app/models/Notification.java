@@ -14,7 +14,7 @@ public class Notification {
     }
 
     public Notification(String content) {
-        this(DEFAULT_CONTENT_ID, content);
+        this(content, DEFAULT_CONTENT_ID);
     }
 
     public Notification(String content, String contentId) {
