@@ -35,4 +35,3 @@ Here is an [example app](https://github.com/gregttn/GCMDemoAndroidApp) developed
 
 Here is an [example app](https://github.com/gregttn/GCMDemoAndroidApp) developed to be used with this server 
 
->>>>>>> 0c8a815e13b3849ca9e273edeff217001971328f
