@@ -1,15 +1,30 @@
 @(devices: List[Device])
 
 @main("Registered devices", "devices") {
-        <h3>Registered Devices: (@devices.size())</h3>
 
-        <ul>
-        @for(device <- devices) {
-            <li>
-                @device.getDeviceId() ==> @device.getRegisteredId()
-            </li>
+        @if(devices.isEmpty) {
+            <div class="alert">
+                <strong>Warning!</strong> No devices registered at the moment
+            </div>
+        } else {
+            <h4>Registered Devices: (@devices.size())</h4>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Device id</th>
+                </tr>
+                </thead>
+                <tbody>
+                @for((device, index) <- devices.zipWithIndex) {
+                <tr>
+                    <td>@{index+1}</td>
+                    <td>@device.getDeviceId() ==> @device.getRegisteredId()</td>
+                </tr>
+                }
+                </tbody>
+            </table>
         }
-        </ul>
 
     
 }
