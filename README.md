@@ -22,7 +22,7 @@ This app can be deployed to Heroku.
 
 ### App
 
-Send a POST request to the http://localhost:9000/register to register device. You need to include following parameters
+Send a POST request to the http://localhost:9000/register to register device. Yo#u need to include following parameters
 
 *   deviceId - unique device id
 *   registrationId - registration id that you received when the app registered with Google Cloud Messaging service.
