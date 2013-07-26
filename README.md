@@ -31,7 +31,3 @@ When server sends message to application data will be contained in "message" par
 
 Here is an [example app](https://github.com/gregttn/GCMDemoAndroidApp) developed to be used with this server
 
-=======
-
-Here is an [example app](https://github.com/gregttn/GCMDemoAndroidApp) developed to be used with this server 
-
