@@ -13,13 +13,15 @@
                 <tr>
                     <th>#</th>
                     <th>Device id</th>
+                    <th>Registration id</th>
                 </tr>
                 </thead>
                 <tbody>
                 @for((device, index) <- devices.zipWithIndex) {
                 <tr>
                     <td>@{index+1}</td>
-                    <td>@device.getDeviceId() ==> @device.getRegisteredId()</td>
+                    <td>@device.getDeviceId()</td>
+                    <td>@device.getRegisteredId()</td>
                 </tr>
                 }
                 </tbody>

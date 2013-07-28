@@ -6,7 +6,7 @@
 GET     /                           controllers.Application.index()
 GET     /devices                    controllers.DeviceController.devices()
 POST    /register                   controllers.DeviceController.register()
-GET     /send                       controllers.DeviceController.sendMessage()
+GET     /send                       controllers.DeviceController.showSendForm()
 POST    /send                       controllers.DeviceController.send()
 
 # Map static resources from the /public folder to the /assets URL path

@@ -27,7 +27,7 @@ public class DeviceControllerTest {
         Result result = callAction(controllers.routes.ref.DeviceController.devices(), fakeRequest());
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("text/html");
-        assertThat(contentAsString(result)).contains("Registered Devices: (0)");
+        assertThat(contentAsString(result)).contains("No devices registered at the moment");
     }
 
     @Test
@@ -72,8 +72,8 @@ public class DeviceControllerTest {
     }
 
     @Test
-    public void testSendMessage() {
-        Result result = callAction(controllers.routes.ref.DeviceController.sendMessage(), fakeRequest());
+    public void testshowSendForm() {
+        Result result = callAction(controllers.routes.ref.DeviceController.showSendForm(), fakeRequest());
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("text/html");
         assertThat(contentAsString(result)).contains("Send message to all registered devices");
@@ -87,16 +87,4 @@ public class DeviceControllerTest {
         Result result = callAction(routes.ref.DeviceController.send(), new FakeRequest(POST, "/send").withFormUrlEncodedBody(params));
         assertThat(status(result)).isEqualTo(BAD_REQUEST);
     }
-
-    @Test
-    public void testSend_renderForm() {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("content", "some message");
-
-        Result result = callAction(routes.ref.DeviceController.send(), new FakeRequest(POST, "/send").withFormUrlEncodedBody(params));
-        assertThat(status(result)).isEqualTo(OK);
-        assertThat(contentType(result)).isEqualTo("text/html");
-        assertThat(contentAsString(result)).contains("Message sent!");
-    }
-
 }

@@ -50,12 +50,7 @@ public class DeviceController extends Controller {
         return ok(devices.render(Lists.newArrayList(registeredDevices.values())));
     }
 
-
-    public static Result sendMessage() {
-        return sendMessage("");
-    }
-
-    public static Result sendMessage(String message) {
+    public static Result showSendForm() {
         return ok(sendMessage.render(messageForm, ""));
     }
 
