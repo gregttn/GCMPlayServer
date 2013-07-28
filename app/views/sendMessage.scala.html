@@ -2,12 +2,14 @@
 
 @import helper._
 
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
 @main("Send message", "send") {
         <h2 id="message">@message</h2>
-        <h3>Send message to all registered devices</h3>
+        <h4>Send message to all registered devices</h4>
 
-        @form(routes.DeviceController.send()) {
-            @helper.inputText(messageForm("content"), '_label -> "Message")
-            <input type="submit" value="Send">
+        @form(routes.DeviceController.send() ) {
+            @helper.textarea(messageForm("content"), '_label -> "Message", '_showConstraints -> false, 'rows -> 5)
+            <input type="submit" value="Send" class="btn btn-primary">
         }
 }
