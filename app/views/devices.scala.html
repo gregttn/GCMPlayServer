@@ -1,5 +1,9 @@
 @(devices: List[Device])
 
+@import helper._
+
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
+
 @main("Registered devices", "devices") {
 
         @if(devices.isEmpty) {
@@ -14,6 +18,7 @@
                     <th>#</th>
                     <th>Device id</th>
                     <th>Registration id</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,6 +27,11 @@
                     <td>@{index+1}</td>
                     <td>@device.getDeviceId()</td>
                     <td>@device.getRegisteredId()</td>
+                    <td>
+                        @form(routes.DeviceController.showSendForm(device.getDeviceId()) ) {
+                        <input type="submit" value="Send Message" class="btn btn-primary">
+                        }
+                    </td>
                 </tr>
                 }
                 </tbody>

@@ -48,7 +48,9 @@ public class DeviceController extends Controller {
 
     public static Result devices() {
         logger.info("Listing all devices");
-        return ok(devices.render(Lists.newArrayList(registeredDevices.values())));
+        List<Device> regDevices =Lists.newArrayList(registeredDevices.values());
+
+        return ok(devices.render(regDevices));
     }
 
     public static Result showSendForm(String deviceId) {
@@ -62,8 +64,20 @@ public class DeviceController extends Controller {
             return badRequest(sendMessage.render(sentForm, "", deviceId));
         }
 
-        gcmGateway.sendMessage(registeredDevices.values(), sentForm.get());
-        return ok(sendMessage.render(messageForm,"Message sent!", deviceId));
+        gcmGateway.sendMessage(getDestinationDevices(deviceId), sentForm.get());
+        return ok(sendMessage.render(messageForm,"Message sent to " + deviceId + "!", deviceId));
+    }
+
+    static Set<Device> getDestinationDevices(String deviceId) {
+        Set<Device> destinationDevices = new HashSet<Device>();
+
+        if(ALL_DEVICES.equals(deviceId)) {
+            destinationDevices.addAll(registeredDevices.values());
+        } else {
+            destinationDevices.add(registeredDevices.get(deviceId));
+        }
+
+        return destinationDevices;
     }
 
     @VisibleForTesting

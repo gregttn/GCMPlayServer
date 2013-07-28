@@ -80,6 +80,14 @@ public class DeviceControllerTest {
     }
 
     @Test
+    public void testShowSendFormForSpecifiedDevice() {
+        Result result = callAction(controllers.routes.ref.DeviceController.showSendForm("some device"), fakeRequest());
+        assertThat(status(result)).isEqualTo(OK);
+        assertThat(contentType(result)).isEqualTo("text/html");
+        assertThat(contentAsString(result)).contains("Send message to some device");
+    }
+
+    @Test
     public void testSend_returnBadRequestWhenNoMessage() {
         Map<String, String> params = new HashMap<String, String>();
         params.put("content", null);
