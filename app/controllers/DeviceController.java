@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class DeviceController extends Controller {
+    public static final String ALL_DEVICES = "all";
     private static transient Map<String, Device> registeredDevices = new HashMap<String, Device>();
     private static Logger logger = LoggerFactory.getLogger("DeviceController");
     private static Form<Notification> messageForm = Form.form(Notification.class);
@@ -50,19 +51,19 @@ public class DeviceController extends Controller {
         return ok(devices.render(Lists.newArrayList(registeredDevices.values())));
     }
 
-    public static Result showSendForm() {
-        return ok(sendMessage.render(messageForm, ""));
+    public static Result showSendForm(String deviceId) {
+        return ok(sendMessage.render(messageForm, "", deviceId));
     }
 
-    public static Result send() throws IOException {
+    public static Result send(String deviceId) throws IOException {
         Form<Notification> sentForm = messageForm.bindFromRequest();
 
         if (sentForm.hasErrors()) {
-            return badRequest(sendMessage.render(sentForm, ""));
+            return badRequest(sendMessage.render(sentForm, "", deviceId));
         }
 
         gcmGateway.sendMessage(registeredDevices.values(), sentForm.get());
-        return ok(sendMessage.render(messageForm,"Message sent!"));
+        return ok(sendMessage.render(messageForm,"Message sent!", deviceId));
     }
 
     @VisibleForTesting

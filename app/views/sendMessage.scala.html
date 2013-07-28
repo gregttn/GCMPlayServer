@@ -1,14 +1,17 @@
-@(messageForm: Form[Notification], message: String)
+@(messageForm: Form[Notification], message: String, deviceId: String)
 
 @import helper._
 
 @implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.render) }
 
 @main("Send message", "send") {
-        <h2 id="message">@message</h2>
-        <h4>Send message to all registered devices</h4>
+        <h3 id="message">@message</h3>
 
-        @form(routes.DeviceController.send() ) {
+        @defining(if(controllers.DeviceController.ALL_DEVICES.equals(deviceId)) "all registered devices" else deviceId) { msg =>
+        <h4>Send message to @msg</h4>
+        }
+
+        @form(routes.DeviceController.send(deviceId) ) {
             @helper.textarea(messageForm("content"), '_label -> "Message", '_showConstraints -> false, 'rows -> 5)
             <input type="submit" value="Send" class="btn btn-primary">
         }

@@ -66,14 +66,14 @@ public class DeviceControllerTest {
 
     @Test
     public void renderSendMessageTemplate() {
-        Content content = views.html.sendMessage.render(Form.form(Notification.class), "");
+        Content content = views.html.sendMessage.render(Form.form(Notification.class), "", "all");
         assertThat(contentType(content)).isEqualTo("text/html");
         assertThat(contentAsString(content)).contains("Send message to all registered devices");
     }
 
     @Test
-    public void testshowSendForm() {
-        Result result = callAction(controllers.routes.ref.DeviceController.showSendForm(), fakeRequest());
+    public void testShowSendForm() {
+        Result result = callAction(controllers.routes.ref.DeviceController.showSendForm("all"), fakeRequest());
         assertThat(status(result)).isEqualTo(OK);
         assertThat(contentType(result)).isEqualTo("text/html");
         assertThat(contentAsString(result)).contains("Send message to all registered devices");
@@ -84,7 +84,7 @@ public class DeviceControllerTest {
         Map<String, String> params = new HashMap<String, String>();
         params.put("content", null);
 
-        Result result = callAction(routes.ref.DeviceController.send(), new FakeRequest(POST, "/send").withFormUrlEncodedBody(params));
+        Result result = callAction(routes.ref.DeviceController.send("all"), new FakeRequest(POST, "/send").withFormUrlEncodedBody(params));
         assertThat(status(result)).isEqualTo(BAD_REQUEST);
     }
 }
